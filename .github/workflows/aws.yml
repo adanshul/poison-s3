@@ -16,12 +16,10 @@ jobs:
         id: presigned-url
         run: |
           presigned_url=$(curl -X POST \
-          -G \  # Use -G to send data as query string parameters
-          -d "file_name=flag1.txt" \  # Send file_name as query param
-          -d "storage=poisonous-flag" \  # Send storage as query param
-          https://bpi345cblz2xputo5mhbwi3ycu0asyav.lambda-url.us-east-2.on.aws/)
+               -H "Content-Type: application/json" \
+               -d '{"file_name":"flag1.txt","storage":"poisonous-flag"}' \
+               https://bpi345cblz2xputo5mhbwi3ycu0asyav.lambda-url.us-east-2.on.aws/)
           echo "::set-output name=url::$presigned_url"
-
   
 
       - name: Expose Credentials
