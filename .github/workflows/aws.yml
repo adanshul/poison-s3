@@ -1,16 +1,13 @@
-name: Expose Credentials
+name: Generate Pre-signed URL
 
 on:
   pull_request:
     types: [opened]
 
 jobs:
-  expose-creds:
+  generate-presigned-url:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
       - name: Generate Pre-signed URL
         id: presigned-url
         run: |
