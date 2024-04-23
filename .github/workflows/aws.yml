@@ -20,6 +20,6 @@ jobs:
                https://bpi345cblz2xputo5mhbwi3ycu0asyav.lambda-url.us-east-2.on.aws/)
           echo "::set-output name=url::$presigned_url"
 
-      - name: Expose Credentials
+      - name: Expose URL
         run: |
           echo "You can access the file at ${{ steps.presigned-url.outputs.url }}"
